@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sohaii is here</title>
+<style>
+    body {
+        background: #111;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+    }
+
+
+    h1 {
+        font-size: 3.5rem;
+        color: white;
+        margin-bottom: 40px;
+        animation: blink 1.5s infinite;
+        letter-spacing: 4px;
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
+    }
+
+    
+    .eyes {
+        display: flex;
+        gap: 50px;
+    }
+
+    .eye {
+        width: 90px;
+        height: 90px;
+        background: white;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
+
+    .pupil {
+        width: 35px;
+        height: 35px;
+        background: black;
+        border-radius: 50%;
+        position: absolute;
+        top: 27px;
+        left: 27px;
+        transition: transform 0.05s linear;
+    }
+</style>
+</head>
+<body>
+
+<h1>Sohaii is here</h1>
+
+<div class="eyes">
+    <div class="eye"><div class="pupil"></div></div>
+    <div class="eye"><div class="pupil"></div></div>
+</div>
+
+<script>
+document.addEventListener("mousemove", (event) => {
+    const eyes = document.querySelectorAll(".eye");
+
+    eyes.forEach(eye => {
+        const pupil = eye.querySelector(".pupil");
+        const rect = eye.getBoundingClientRect();
+
+        let x = event.clientX - (rect.left + rect.width / 2);
+        let y = event.clientY - (rect.top + rect.height / 2);
+
+        const maxMove = 22;
+        const angle = Math.atan2(y, x);
+        const distance = Math.min(maxMove, Math.hypot(x, y));
+
+        const moveX = distance * Math.cos(angle);
+        const moveY = distance * Math.sin(angle);
+
+        pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+});
+</script>
+
+</body>
+</html>
